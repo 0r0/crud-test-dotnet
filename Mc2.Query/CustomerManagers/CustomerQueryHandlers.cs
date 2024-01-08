@@ -7,12 +7,12 @@ namespace Mc2.Query.CustomerManagers;
 public class CustomerQueryHandlers : IQueryHandler<GetCustomerById,CustomerResponse>,
     IQueryHandler<GetAllCustomers,IReadOnlyCollection<CustomerResponse>>
 {
-    public Task<CustomerResponse> Handle(GetCustomerById query)
+    public CustomerResponse Handle(GetCustomerById query)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IReadOnlyCollection<CustomerResponse>> Handle(GetAllCustomers query)
+    public IReadOnlyCollection<CustomerResponse> Handle(GetAllCustomers query)
     {
         throw new NotImplementedException();
     }
