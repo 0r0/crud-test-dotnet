@@ -12,6 +12,8 @@ namespace Mc2.CrudTest.Presentation
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Services.AddSwaggerGen();
+
 
             var app = builder.Build();
 
@@ -19,6 +21,9 @@ namespace Mc2.CrudTest.Presentation
             if (app.Environment.IsDevelopment())
             {
                 app.UseWebAssemblyDebugging();
+                app.UseSwagger();
+                app.UseSwaggerUI();
+                
             }
             else
             {
@@ -28,7 +33,7 @@ namespace Mc2.CrudTest.Presentation
             }
 
             app.UseHttpsRedirection();
-
+            
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
