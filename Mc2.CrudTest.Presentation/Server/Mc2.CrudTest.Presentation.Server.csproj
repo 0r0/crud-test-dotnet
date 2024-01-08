@@ -16,13 +16,5 @@
         <ProjectReference Include="..\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="CustomerManager\Application.Contracts\" />
-      <Folder Include="CustomerManager\Application\" />
-      <Folder Include="CustomerManager\Domain.Contracts\" />
-      <Folder Include="CustomerManager\Domain\" />
-      <Folder Include="CustomerManager\Infrastracture\" />
-    </ItemGroup>
-
 
 </Project>
