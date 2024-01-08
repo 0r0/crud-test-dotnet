@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Mc2.Application.CustomerManagers;
+using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Shared;
 using Mc2.Query.CustomerManagers;
 
@@ -21,6 +22,10 @@ public class CustomerModule : Autofac.Module
         builder.RegisterAssemblyTypes(typeof(CustomerQueryHandlers).Assembly)
             .As(type => type.GetInterfaces().Where(t => t.IsClosedTypeOf(typeof(IQueryHandler<,>))))
             .InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(DefineCustomerCommandValidator).Assembly)
+            .AsClosedTypesOf(typeof(ICommandValidator<>))
+            .AsImplementedInterfaces()
+            .SingleInstance();
         
     }
 }
