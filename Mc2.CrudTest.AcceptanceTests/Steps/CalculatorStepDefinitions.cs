@@ -13,7 +13,6 @@ public sealed class CalculatorStepDefinitions
     [Given("to be filled...")]
     public void GivenTheFirstNumberIs(int number)
     {
-
         _scenarioContext.Pending();
     }
 

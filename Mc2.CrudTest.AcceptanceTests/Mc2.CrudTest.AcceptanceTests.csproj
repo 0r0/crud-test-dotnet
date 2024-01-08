@@ -21,4 +21,13 @@
         <PackageReference Include="Suzianna.Rest" Version="1.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Features\ModifyingCustomerManager.feature.cs">
+        <DependentUpon>ModifyingCustomerManager.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+    </ItemGroup>
+
 </Project>
