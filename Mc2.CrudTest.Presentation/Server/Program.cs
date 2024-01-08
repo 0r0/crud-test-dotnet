@@ -1,6 +1,5 @@
 using Autofac;
-using Mc2.CrudTest.Presentation.Module;
-using Microsoft.AspNetCore.ResponseCompression;
+using Mc2.CrudTest.Presentation.Server.Module;
 
 namespace Mc2.CrudTest.Presentation
 {
