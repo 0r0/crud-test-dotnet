@@ -1,3 +1,5 @@
+using Autofac;
+using Mc2.CrudTest.Presentation.Module;
 using Microsoft.AspNetCore.ResponseCompression;
 
 namespace Mc2.CrudTest.Presentation
@@ -13,7 +15,8 @@ namespace Mc2.CrudTest.Presentation
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
             builder.Services.AddSwaggerGen();
-
+            builder.Host.ConfigureContainer<ContainerBuilder>(autofacBuilder =>
+                autofacBuilder.RegisterModule(new CustomerModule()));
 
             var app = builder.Build();
 
@@ -23,7 +26,6 @@ namespace Mc2.CrudTest.Presentation
                 app.UseWebAssemblyDebugging();
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                
             }
             else
             {
@@ -33,7 +35,7 @@ namespace Mc2.CrudTest.Presentation
             }
 
             app.UseHttpsRedirection();
-            
+
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
