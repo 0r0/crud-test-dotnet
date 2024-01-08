@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Mc2.Domain.Contracts\Mc2.Domain.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="NBuilder" Version="6.1.0" />
+    </ItemGroup>
+
 </Project>
