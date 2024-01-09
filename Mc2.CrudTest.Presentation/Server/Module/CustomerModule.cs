@@ -1,23 +1,28 @@
 ﻿using Autofac;
+using DDDFramework.Core;
+using Mc2.Application;
 using Mc2.Application.CustomerManagers;
 using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Shared;
 using Mc2.CrudTest.Presentation.Shared.EventStore;
 using Mc2.DBSynchronizer.Handlers;
+using Mc2.Query;
 using Mc2.Query.CustomerManagers;
 
 namespace Mc2.CrudTest.Presentation.Server.Module;
 
 public class CustomerModule : Autofac.Module
 {
-    public CustomerModule()
-    {
-    }
-
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterGeneric(typeof(EventSourceRepository<,>)).As(typeof(IEventSourceRepository<,>))
             .SingleInstance();
+        builder.RegisterAssemblyTypes(typeof(CustomerRepository).Assembly)
+            .Where(a => typeof(IRepository).IsAssignableFrom(a))
+            .AsImplementedInterfaces().InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(CustomerService).Assembly)
+            .Where(a => typeof(IDomainService).IsAssignableFrom(a))
+            .AsImplementedInterfaces().InstancePerLifetimeScope();
         builder.RegisterType<CommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
         builder.RegisterType<QueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
         builder.RegisterType<InMemoryEventStore>().As<IEventStore>().InstancePerLifetimeScope();
@@ -33,5 +38,6 @@ public class CustomerModule : Autofac.Module
             .AsClosedTypesOf(typeof(ICommandValidator<>))
             .AsImplementedInterfaces()
             .SingleInstance();
+        base.Load(builder);
     }
 }
