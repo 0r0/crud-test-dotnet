@@ -1,6 +1,8 @@
-﻿namespace Mc2.Domain.Contracts.CustomerManagers;
+﻿using Mc2.CrudTest.Presentation.Shared;
 
-public class CustomerDefined
+namespace Mc2.Domain.Contracts.CustomerManagers;
+
+public class CustomerDefined :DomainEvent
 {
     public CustomerDefined(CustomerId id, string firstName, string lastName, DateTime dateOfBirth, long phoneNumber,
         string email, string bankAccountNumber)
