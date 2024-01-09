@@ -4,7 +4,8 @@
 
 public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot
 {
-    public readonly List<DomainEvent> _uncommittedEvent;
+    private readonly List<DomainEvent> _uncommittedEvent;
+    public  IEventPublisher _publisher;
 
     public long Version { get; private set; }
 

@@ -24,6 +24,8 @@ public class CustomerModule : Autofac.Module
             .Where(a => typeof(IDomainService).IsAssignableFrom(a))
             .AsImplementedInterfaces().InstancePerLifetimeScope();
         builder.RegisterType<CommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
+        builder.RegisterType<EventPublisher>().As<IEventPublisher>().InstancePerLifetimeScope();
+        builder.RegisterType<EventBus>().As<IEventBus>().InstancePerLifetimeScope();
         builder.RegisterType<QueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
         builder.RegisterType<InMemoryEventStore>().As<IEventStore>().InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(CustomerCommandHandlers).Assembly)
