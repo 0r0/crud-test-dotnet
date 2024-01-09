@@ -2,6 +2,7 @@
 using Mc2.Application.CustomerManagers;
 using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Shared;
+using Mc2.CrudTest.Presentation.Shared.EventStore;
 using Mc2.DBSynchronizer.Handlers;
 using Mc2.Query.CustomerManagers;
 
@@ -15,8 +16,11 @@ public class CustomerModule : Autofac.Module
 
     protected override void Load(ContainerBuilder builder)
     {
+        builder.RegisterGeneric(typeof(EventSourceRepository<,>)).As(typeof(IEventSourceRepository<,>))
+            .SingleInstance();
         builder.RegisterType<CommandBus>().As<ICommandBus>().InstancePerLifetimeScope();
         builder.RegisterType<QueryBus>().As<IQueryBus>().InstancePerLifetimeScope();
+        builder.RegisterType<InMemoryEventStore>().As<IEventStore>().InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(CustomerCommandHandlers).Assembly)
             .As(type => type.GetInterfaces().Where(t => t.IsClosedTypeOf(typeof(ICommandHandler<>))))
             .InstancePerLifetimeScope();
