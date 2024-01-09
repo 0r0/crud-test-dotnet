@@ -1,6 +1,10 @@
-﻿namespace Mc2.Domain.CustomerManagers;
+﻿using DDDFramework.Core;
+using Mc2.Domain.Contracts.CustomerManagers;
 
-public interface ICustomerRepository
+namespace Mc2.Domain.CustomerManagers;
+
+public interface ICustomerRepository : IRepository
 {
-    
+    void Add(Customer customer);
+    Customer GetById(CustomerId id);
 }

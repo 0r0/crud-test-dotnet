@@ -1,6 +1,7 @@
-﻿namespace Mc2.Domain.CustomerManagers;
+﻿using Mc2.CrudTest.Presentation.Shared;
 
-public interface ICustomerService
+namespace Mc2.Domain.CustomerManagers;
+
+public interface ICustomerService : IDomainService
 {
-    
 }
