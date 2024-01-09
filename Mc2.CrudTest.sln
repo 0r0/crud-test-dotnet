@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.Query", "Mc2.Query\Mc2.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.Query.Contracts", "Mc2.Query.Contracts\Mc2.Query.Contracts.csproj", "{B21B7749-F29B-4083-95F1-1A6BBD9E25EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mc2.DBSynchronizer", "Mc2.DBSynchronizer\Mc2.DBSynchronizer.csproj", "{592DDB01-CA19-43A1-AF45-0B5449A0F154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{B21B7749-F29B-4083-95F1-1A6BBD9E25EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21B7749-F29B-4083-95F1-1A6BBD9E25EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21B7749-F29B-4083-95F1-1A6BBD9E25EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{592DDB01-CA19-43A1-AF45-0B5449A0F154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{592DDB01-CA19-43A1-AF45-0B5449A0F154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{592DDB01-CA19-43A1-AF45-0B5449A0F154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{592DDB01-CA19-43A1-AF45-0B5449A0F154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{09A1F688-D7FD-4F35-9C23-B8154A14F134} = {05479684-B046-40F1-A949-D3F546C65B21}
 		{39E75B34-86A6-4568-ABA4-5EEDAD93A244} = {A6052E2D-7210-440A-AAD7-364EEEA7BC6F}
 		{B21B7749-F29B-4083-95F1-1A6BBD9E25EC} = {A6052E2D-7210-440A-AAD7-364EEEA7BC6F}
+		{592DDB01-CA19-43A1-AF45-0B5449A0F154} = {A6052E2D-7210-440A-AAD7-364EEEA7BC6F}
 	EndGlobalSection
 EndGlobal
