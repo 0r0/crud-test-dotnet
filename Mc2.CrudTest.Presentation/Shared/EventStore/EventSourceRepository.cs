@@ -9,12 +9,14 @@ public class EventSourceRepository<T, TKey> : IEventSourceRepository<T, TKey> wh
 {
     private readonly IEventStore _eventStore;
     private readonly IAggregateRootFactory _aggregateRootFactory;
+    private readonly IEventBus _eventBus;
 
 
-    public EventSourceRepository(IEventStore eventStore, IAggregateRootFactory aggregateRootFactory)
+    public EventSourceRepository(IEventStore eventStore, IAggregateRootFactory aggregateRootFactory, IEventBus eventBus)
     {
         _eventStore = eventStore;
         _aggregateRootFactory = aggregateRootFactory;
+        _eventBus = eventBus;
     }
 
 
@@ -28,6 +30,10 @@ public class EventSourceRepository<T, TKey> : IEventSourceRepository<T, TKey> wh
     {
         var events = aggregate.GetUncommittedEvents();
         _eventStore.Append(GetStreamId(aggregate.Id), events);
+        foreach (DomainEvent domainEvent in events)
+        {
+            _eventBus.Publish(domainEvent);
+        }
     }
 
     private string GetStreamId(TKey id)
