@@ -7,17 +7,17 @@ public class CustomerCommandHandlers :ICommandHandler<DefineCustomerCommand>,
     ICommandHandler<ModifyCustomerCommand>,
     ICommandHandler<RemoveCustomerCommand>
 {
-    public Task Handle(DefineCustomerCommand command)
+    public void Handle(DefineCustomerCommand command)
     {
         throw new NotImplementedException();
     }
 
-    public Task Handle(ModifyCustomerCommand command)
+    public void Handle(ModifyCustomerCommand command)
     {
         throw new NotImplementedException();
     }
 
-    public Task Handle(RemoveCustomerCommand command)
+    public void Handle(RemoveCustomerCommand command)
     {
         throw new NotImplementedException();
     }
