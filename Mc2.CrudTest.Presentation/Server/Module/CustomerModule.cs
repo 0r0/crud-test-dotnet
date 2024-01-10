@@ -4,6 +4,7 @@ using Mc2.Application;
 using Mc2.Application.CustomerManagers;
 using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Shared;
+using Mc2.CrudTest.Presentation.Shared.AggregateRootFactory;
 using Mc2.CrudTest.Presentation.Shared.EventStore;
 using Mc2.DBProjection.Handlers;
 using Mc2.Query;
@@ -40,7 +41,10 @@ public class CustomerModule : Autofac.Module
             .AsClosedTypesOf(typeof(ICommandValidator<>))
             .AsImplementedInterfaces()
             .SingleInstance();
+        builder.RegisterType<AggregateRootFactory>().As<IAggregateRootFactory>().SingleInstance();
+
         builder.RegisterType<AutofacQueryHandlerFactory>().As<IQueryHandlerFactory>().InstancePerLifetimeScope();
+        builder.RegisterType<EventAggregator>().As<IEventAggregator>().InstancePerLifetimeScope();
         base.Load(builder);
     }
 }

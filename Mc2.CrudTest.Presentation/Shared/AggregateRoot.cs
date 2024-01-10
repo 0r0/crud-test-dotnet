@@ -5,7 +5,7 @@
 public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot
 {
     private readonly List<DomainEvent> _uncommittedEvent;
-    public  IEventPublisher _publisher;
+    private IEventPublisher _publisher;
 
     public long Version { get; private set; }
 
@@ -14,6 +14,10 @@ public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot
         _uncommittedEvent = new List<DomainEvent>();
     }
 
+    public void SetPublisher(IEventPublisher publisher)
+    {
+        _publisher = publisher;
+    }
     public IReadOnlyList<DomainEvent> GetUncommittedEvents() => _uncommittedEvent.AsReadOnly();
 
 
@@ -21,6 +25,7 @@ public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot
 
     {
         if (@event is null) throw new ArgumentNullException($"domain event can  not be null=>{nameof(@event)}");
+        _publisher.Publish(@event);
         _uncommittedEvent.Add(@event);
     }
 

@@ -1,19 +1,31 @@
 namespace Mc2.CrudTest.Presentation.Shared;
 
-public class EventPublisher :IEventPublisher
+public class EventPublisher : IEventPublisher
 {
-    public Task Publish<TEvent>(TEvent @event) where TEvent : IEvent
+    private readonly List<object> _publishedEvents;
+    private readonly IEventAggregator _aggregator;
+
+    public EventPublisher(IEventAggregator aggregator)
     {
-        throw new NotImplementedException();
+        _publishedEvents = new();
+        _aggregator = aggregator;
+    }
+
+    public async Task Publish<TEvent>(TEvent @event) where TEvent : IEvent
+    {
+        if (@event is DomainEvent domainEvent)
+
+            _publishedEvents.Add(@event);
+        await _aggregator?.Publish(@event);
     }
 
     public List<object> GetPublishedEvents()
     {
-        throw new NotImplementedException();
+        return _publishedEvents.ToList();
     }
 
     public void ClearHistory()
     {
-        throw new NotImplementedException();
+        _publishedEvents.Clear();
     }
 }
