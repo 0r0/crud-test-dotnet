@@ -5,7 +5,7 @@ using Mc2.Application.CustomerManagers;
 using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Shared;
 using Mc2.CrudTest.Presentation.Shared.EventStore;
-using Mc2.DBSynchronizer.Handlers;
+using Mc2.DBProjection.Handlers;
 using Mc2.Query;
 using Mc2.Query.CustomerManagers;
 

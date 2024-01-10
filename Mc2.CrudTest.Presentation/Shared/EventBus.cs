@@ -11,7 +11,7 @@ public class EventBus : IEventBus
         _lifetimeScope = lifetimeScope;
     }
 
-    public void Publish<T>(T @event) where T : DomainEvent
+    public void   Publish<T>(T @event) where T : DomainEvent
     {
         using var scope = _lifetimeScope.BeginLifetimeScope();
         var handler = scope.Resolve<IEventHandler<T>>();

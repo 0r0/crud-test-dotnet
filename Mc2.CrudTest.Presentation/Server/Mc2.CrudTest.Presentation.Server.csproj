@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Mc2.Application\Mc2.Application.csproj" />
-        <ProjectReference Include="..\..\Mc2.DBSynchronizer\Mc2.DBSynchronizer.csproj" />
+        <ProjectReference Include="..\..\Mc2.DBProjection\Mc2.DBProjection.csproj" />
         <ProjectReference Include="..\..\Mc2.Query\Mc2.Query.csproj" />
         <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
         <ProjectReference Include="..\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
