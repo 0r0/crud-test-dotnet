@@ -6,7 +6,7 @@ namespace Mc2.Domain.Tests.Stub;
 
 public class TestBaseStep
 {
-    protected Exception Exception;
+    protected BusinessException Exception;
 
     protected TestBaseStep()
     {
@@ -32,8 +32,8 @@ public class TestBaseStep
     protected void MustThrowException(string code, string message)
     {
         var expected = Exception.ToString().Replace('_', '-');
-        var actual = string.Concat(code.Skip(3));
-        expected.Should().Be(actual);
+       
+        expected.Should().Be(code);
     }
 
     public void MustThrowExceptionAs<TException>(Enum errorCode) where TException : Exception

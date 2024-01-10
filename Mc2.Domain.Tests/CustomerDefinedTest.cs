@@ -53,6 +53,7 @@ public class CustomerDefinedTest : CustomerSteps
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
         this.Given(a=>ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
+            .And(a=>CustomerIsDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(newCustomer))
             .When(a => IRegisterCustomerWithFollowingProperties(newCustomer))
             .Then(a => MustThrowException(code, message))
             .BDDfy();
@@ -82,6 +83,7 @@ public class CustomerDefinedTest : CustomerSteps
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
         this.Given(a=>ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
+            .And(a=>EmailIsDuplicated(newCustomer))
             .When(a => IRegisterCustomerWithFollowingProperties(newCustomer))
             .Then(a => MustThrowException(code, message))
             .BDDfy();

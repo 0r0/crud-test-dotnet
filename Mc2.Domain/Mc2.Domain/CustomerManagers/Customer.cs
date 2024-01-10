@@ -5,9 +5,14 @@ namespace Mc2.Domain.CustomerManagers;
 
 public partial class Customer : AggregateRoot<CustomerId>
 {
+    public Customer()
+    {
+    }
+
     public Customer(CustomerArgs args, ICustomerService service)
     {
-        //todo! add guards here
+        GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(args, service);
+        GuardAgainstSameEmail(args, service);
         ApplyAndPublish(new CustomerDefined(args.Id, args.FirstName, args.LastName, args.DateOfBirth, args.PhoneNumber,
             args.Email, args.BankAccountNumber));
     }
@@ -15,13 +20,14 @@ public partial class Customer : AggregateRoot<CustomerId>
 
     public static Customer Create(CustomerArgs args, ICustomerService service)
     {
-        Customer customer = new Customer(args, service);
+        Customer customer = new(args, service);
         return customer;
     }
 
     public void Modify(CustomerArgs args, ICustomerService service)
     {
-        //todo! add guards here
+        GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(args, service);
+        GuardAgainstSameEmail(args, service);
         ApplyAndPublish(new CustomerModified(args.Id, args.FirstName, args.LastName, args.DateOfBirth, args.PhoneNumber,
             args.Email, args.BankAccountNumber));
     }

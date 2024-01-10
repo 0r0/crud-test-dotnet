@@ -1,3 +1,4 @@
+using Mc2.CrudTest.Presentation.Shared;
 using Mc2.Domain.Contracts.CustomerManagers;
 using Mc2.Domain.CustomerManagers;
 using Mc2.Domain.Tests.Stub;
@@ -17,10 +18,12 @@ public class CustomerSteps : TestBaseStep
 
     protected void ThereIsARegisteredCustomerWithTheFollowingProperties(CustomerArgs args)
     {
-    
+        _service.IsEmailDuplicated(args.Id, args.Email).Returns(false);
+        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(args.Id, args.FirstName, args.LastName,
+            args.DateOfBirth).Returns(false);
         var e = new CustomerDefined(args.Id,args.FirstName,args.LastName,args.DateOfBirth,args.PhoneNumber,args.Email,args.BankAccountNumber);
         var customer = CreateFromEvents<Customer, CustomerId>(e);
-        _customers.Add(args.FirstName,customer);
+        _customers.Add(args.Id.Id.ToString(),customer);
     }
     
     
@@ -30,9 +33,9 @@ public class CustomerSteps : TestBaseStep
         try
         {
             var customer = Customer.Create(customerArgs, _service);
-            _customers.Add(customerArgs.FirstName, customer);
+            _customers.Add(customerArgs.Id.Id.ToString(), customer);
         }
-        catch (Exception e)
+        catch (BusinessException e)
         {
             Exception = e;
         }
@@ -43,7 +46,7 @@ public class CustomerSteps : TestBaseStep
         
         var expected = new CustomerDefined(customerArgs.Id, customerArgs.FirstName, customerArgs.LastName,
             customerArgs.DateOfBirth, customerArgs.PhoneNumber, customerArgs.Email, customerArgs.BankAccountNumber);
-        _customers[customerArgs.FirstName].ShouldContainsEquivalencyOfDomainEvent(expected);
+        _customers[customerArgs.Id.Id.ToString()].ShouldContainsEquivalencyOfDomainEvent(expected);
     }
 
     #region Helper
@@ -52,12 +55,21 @@ public class CustomerSteps : TestBaseStep
     {
         _service.IsEmailDuplicated(customerArgs.Id, customerArgs.Email).Returns(false);
 
+    }   protected void EmailIsDuplicated(CustomerArgs customerArgs)
+    {
+        _service.IsEmailDuplicated(customerArgs.Id, customerArgs.Email).Returns(true);
+
     }
 
     protected void CustomerIsNotDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(CustomerArgs customerArgs)
     {
         _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.Id,customerArgs.FirstName, customerArgs.LastName,
             customerArgs.DateOfBirth).Returns(false);
+    }
+    protected void CustomerIsDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(CustomerArgs customerArgs)
+    {
+        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.Id,customerArgs.FirstName, customerArgs.LastName,
+            customerArgs.DateOfBirth).Returns(true);
     }
 
     #endregion
