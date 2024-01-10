@@ -12,4 +12,8 @@
       <ProjectReference Include="..\Mc2.Query.Contracts\Mc2.Query.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Neo4jClient" Version="5.1.14" />
+    </ItemGroup>
+
 </Project>
