@@ -6,7 +6,7 @@ using TestStack.BDDfy;
 namespace Mc2.Domain.Tests;
 
 
-public class CustomerDefined :CustomerSteps
+public class CustomerDefinedTest :CustomerSteps
 {
     [Theory]
     [InlineData("Ali","Karami","1990/01/01",09381982893,"ali.karami@gmail.com","IE12BOFI90000112345678")]
@@ -20,9 +20,9 @@ public class CustomerDefined :CustomerSteps
             .With(a => a.Email, email)
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
-        // this.When(a => IRegisterCustomerWithFollowingProperties(customer))
-        //     .Then(ICanFindACustomerWithAboveInfo(customer))
-        //     .BDDfy();
+        this.When(a => IRegisterCustomerWithFollowingProperties(customer))
+            .Then(a=>ICanFindACustomerWithAboveInfo(customer))
+            .BDDfy();
 
 
     }

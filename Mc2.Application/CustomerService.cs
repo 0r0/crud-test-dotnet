@@ -7,11 +7,12 @@ public class CustomerService : ICustomerService
 {
     public bool IsEmailDuplicated(CustomerId id, string email)
     {
-        throw new NotImplementedException();
+        return default;
     }
 
-    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(string firstName, string lastName, DateTime dateOfBirth)
+    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(string firstName, string lastName,
+        DateTime dateOfBirth)
     {
-        throw new NotImplementedException();
+        return default;
     }
 }

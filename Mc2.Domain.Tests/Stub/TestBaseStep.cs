@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Mc2.CrudTest.Presentation.Shared;
 using Mc2.CrudTest.Presentation.Shared.AggregateRootFactory;
-using TestStack.BDDfy.Configuration;
 
 namespace Mc2.Domain.Tests.Stub;
 
