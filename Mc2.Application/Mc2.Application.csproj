@@ -10,6 +10,7 @@
       <ProjectReference Include="..\Mc2.Application.Contracts\Mc2.Application.Contracts.csproj" />
       <ProjectReference Include="..\Mc2.CrudTest.Presentation\Shared\Mc2.CrudTest.Presentation.Shared.csproj" />
       <ProjectReference Include="..\Mc2.Domain\Mc2.Domain\Mc2.Domain.csproj" />
+      <ProjectReference Include="..\Mc2.Query.Contracts\Mc2.Query.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>

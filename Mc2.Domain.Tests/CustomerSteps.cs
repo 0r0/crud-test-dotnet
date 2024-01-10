@@ -34,7 +34,6 @@ public class CustomerSteps : TestBaseStep
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
             Exception = e;
         }
     }
