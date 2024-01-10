@@ -8,4 +8,6 @@ public class BusinessException :Exception
     }
 
     public Enum ErrorCode { get; private set; }
+    public override string ToString() => this.ErrorCode.ToString().Replace('_', '-');
+
 }
