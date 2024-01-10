@@ -15,6 +15,16 @@ public class CustomerSteps : TestBaseStep
         _service = Substitute.For<ICustomerService>();
     }
 
+    protected void ThereIsARegisteredCustomerWithTheFollowingProperties(CustomerArgs args)
+    {
+    
+        var e = new CustomerDefined(args.Id,args.FirstName,args.LastName,args.DateOfBirth,args.PhoneNumber,args.Email,args.BankAccountNumber);
+        var customer = CreateFromEvents<Customer, CustomerId>(e);
+        _customers.Add(args.FirstName,customer);
+    }
+    
+    
+
     protected void IRegisterCustomerWithFollowingProperties(CustomerArgs customerArgs)
     {
         try
@@ -31,11 +41,26 @@ public class CustomerSteps : TestBaseStep
 
     protected void ICanFindACustomerWithAboveInfo(CustomerArgs customerArgs)
     {
-        _service.IsEmailDuplicated(customerArgs.Id, customerArgs.Email).Returns(false);
-        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.FirstName, customerArgs.LastName,
-            customerArgs.DateOfBirth).Returns(false);
+        
         var expected = new CustomerDefined(customerArgs.Id, customerArgs.FirstName, customerArgs.LastName,
             customerArgs.DateOfBirth, customerArgs.PhoneNumber, customerArgs.Email, customerArgs.BankAccountNumber);
         _customers[customerArgs.FirstName].ShouldContainsEquivalencyOfDomainEvent(expected);
     }
+
+    #region Helper
+
+    protected void EmailIsNotDuplicated(CustomerArgs customerArgs)
+    {
+        _service.IsEmailDuplicated(customerArgs.Id, customerArgs.Email).Returns(false);
+
+    }
+
+    protected void CustomerIsNotDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(CustomerArgs customerArgs)
+    {
+        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.FirstName, customerArgs.LastName,
+            customerArgs.DateOfBirth).Returns(false);
+    }
+
+    #endregion
+    
 }
