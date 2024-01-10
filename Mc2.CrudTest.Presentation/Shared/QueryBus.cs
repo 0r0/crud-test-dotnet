@@ -1,19 +1,17 @@
-using Autofac;
-
 namespace Mc2.CrudTest.Presentation.Shared;
 
 public class QueryBus : IQueryBus
 {
-    private readonly ILifetimeScope _lifetimeScope;
+    private IQueryHandlerFactory _handlerFactory;
 
-    public QueryBus(ILifetimeScope lifetimeScope)
+    public QueryBus(IQueryHandlerFactory handlerFactory)
     {
-        _lifetimeScope = lifetimeScope;
+        _handlerFactory = handlerFactory;
     }
 
     public TResult Execute<TQuery, TResult>(TQuery query) where TQuery : IQuery<TResult>
     {
-        var handler = _lifetimeScope.Resolve<IQueryHandler<TQuery, TResult>>();
+        var handler = _handlerFactory.CreateHandler<TQuery, TResult>();
         return handler.Handle(query);
     }
 }

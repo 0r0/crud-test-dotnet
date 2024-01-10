@@ -40,6 +40,7 @@ public class CustomerModule : Autofac.Module
             .AsClosedTypesOf(typeof(ICommandValidator<>))
             .AsImplementedInterfaces()
             .SingleInstance();
+        builder.RegisterType<AutofacQueryHandlerFactory>().As<IQueryHandlerFactory>().InstancePerLifetimeScope();
         base.Load(builder);
     }
 }
