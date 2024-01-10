@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Mc2.CrudTest.Presentation.Server.Module;
 
 namespace Mc2.CrudTest.Presentation
@@ -10,6 +11,7 @@ namespace Mc2.CrudTest.Presentation
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
