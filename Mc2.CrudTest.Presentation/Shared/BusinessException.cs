@@ -1,4 +1,4 @@
-namespace Mc2.Domain.CustomerManagers;
+namespace Mc2.CrudTest.Presentation.Shared;
 
 public class BusinessException :Exception
 {

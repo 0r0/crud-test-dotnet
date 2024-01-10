@@ -1,18 +1,19 @@
-﻿namespace Mc2.Domain.CustomerManagers;
+﻿using Mc2.Domain.Contracts.CustomerManagers.Exceptions;
+
+namespace Mc2.Domain.CustomerManagers;
 
 public partial class Customer
 {
-    private void GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(CustomerArgs args, ICustomerService service)
+    private static void GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(CustomerArgs args, ICustomerService service)
     {
-        if (service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(args.FirstName, args.LastName,
+        if (service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(args.Id, args.FirstName, args.LastName,
                 args.DateOfBirth))
             throw new CustomerWithSameFirstNameLastNameAndDateOfBirthExistException();
     }
-}
 
-public class CustomerWithSameFirstNameLastNameAndDateOfBirthExistException : BusinessException
-{
-    public CustomerWithSameFirstNameLastNameAndDateOfBirthExistException():base(Customer_Error.CS_1004)
+    private static void GuardAgainstSameEmail(CustomerArgs args, ICustomerService service)
     {
+        if (service.IsEmailDuplicated(args.Id, args.Email))
+            throw new CustomerWithSameEmailExistException();
     }
 }

@@ -7,6 +7,6 @@ public interface ICustomerService : IDomainService
 {
     public bool IsEmailDuplicated(CustomerId id, string email);
 
-    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(string firstName, string lastName,
+    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(CustomerId customerId,string firstName, string lastName,
         DateTime dateOfBirth);
 }

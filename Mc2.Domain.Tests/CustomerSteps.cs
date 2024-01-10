@@ -56,7 +56,7 @@ public class CustomerSteps : TestBaseStep
 
     protected void CustomerIsNotDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(CustomerArgs customerArgs)
     {
-        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.FirstName, customerArgs.LastName,
+        _service.IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(customerArgs.Id,customerArgs.FirstName, customerArgs.LastName,
             customerArgs.DateOfBirth).Returns(false);
     }
 

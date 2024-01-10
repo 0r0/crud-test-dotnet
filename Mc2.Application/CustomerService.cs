@@ -16,13 +16,13 @@ public class CustomerService : ICustomerService
 
     public bool IsEmailDuplicated(CustomerId id, string email)
     {
-        return _queryBus.Execute<IsSameEmailExist, bool>(new IsSameEmailExist(email));
+        return _queryBus.Execute<IsSameEmailExist, bool>(new IsSameEmailExist(id,email));
     }
 
-    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(string firstName, string lastName,
+    public bool IsCustomerDuplicatedByFirstNameLastNameAndDateOfBirth(CustomerId customerId,string firstName, string lastName,
         DateTime dateOfBirth)
     {
         return _queryBus.Execute<IsCustomerWithSameFirstNameLastNameAndBirthDateExist, bool>(
-            new IsCustomerWithSameFirstNameLastNameAndBirthDateExist(firstName, lastName, dateOfBirth));
+            new IsCustomerWithSameFirstNameLastNameAndBirthDateExist(customerId,firstName, lastName, dateOfBirth));
     }
 }
