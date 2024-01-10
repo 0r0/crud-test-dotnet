@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="7.0.0-alpha.3" />
+        <PackageReference Include="IbanNet" Version="5.13.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
         <PackageReference Include="NSubstitute" Version="5.1.0" />
         <PackageReference Include="TestStack.BDDfy.Xunit" Version="1.2.0" />

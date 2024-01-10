@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using FizzWare.NBuilder;
+using IbanNet;
 using Mc2.Domain.Contracts.CustomerManagers;
+using Mc2.Domain.Contracts.CustomerManagers.Exceptions;
 using Mc2.Domain.CustomerManagers;
 using TestStack.BDDfy;
+using ValidationResult = IbanNet.ValidationResult;
 
 namespace Mc2.Domain.Tests;
 
@@ -20,9 +24,9 @@ public class CustomerDefinedTest : CustomerSteps
             .With(a => a.Email, email)
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
-        
-        this.Given(a=>EmailIsNotDuplicated(customer))
-            .And(a=>CustomerIsNotDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(customer))
+
+        this.Given(a => EmailIsNotDuplicated(customer))
+            .And(a => CustomerIsNotDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(customer))
             .When(a => IRegisterCustomerWithFollowingProperties(customer))
             .Then(a => ICanFindACustomerWithAboveInfo(customer))
             .BDDfy();
@@ -52,8 +56,8 @@ public class CustomerDefinedTest : CustomerSteps
             .With(a => a.Email, email)
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
-        this.Given(a=>ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
-            .And(a=>CustomerIsDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(newCustomer))
+        this.Given(a => ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
+            .And(a => CustomerIsDuplicatedBasedOnFirstNameLastNameAndDateOfBirth(newCustomer))
             .When(a => IRegisterCustomerWithFollowingProperties(newCustomer))
             .Then(a => MustThrowException(code, message))
             .BDDfy();
@@ -82,11 +86,69 @@ public class CustomerDefinedTest : CustomerSteps
             .With(a => a.Email, email)
             .With(a => a.PhoneNumber, phoneNumber)
             .With(a => a.BankAccountNumber, bankOfAccount).Build();
-        this.Given(a=>ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
-            .And(a=>EmailIsDuplicated(newCustomer))
+        this.Given(a => ThereIsARegisteredCustomerWithTheFollowingProperties(oldCustomer))
+            .And(a => EmailIsDuplicated(newCustomer))
             .When(a => IRegisterCustomerWithFollowingProperties(newCustomer))
             .Then(a => MustThrowException(code, message))
             .BDDfy();
-        
     }
+
+    #region helper
+
+    [Theory]
+    [MemberData(nameof(_validTestEmailData))]
+    public void EmailAddressCheck(string email)
+    {
+        var emailValidator = new EmailAddressAttribute();
+        Assert.True(emailValidator.IsValid(email));
+    }
+
+    [Theory]
+    [MemberData(nameof(_invalidTestBankAccountData))]
+    public void BankAccountNumberIsValid(string invalidBankNumber)
+    {
+        Action<string> ValidBankAccount = (value) =>
+        {
+            var validator = new IbanValidator();
+            ValidationResult validationResult = validator.Validate(value);
+            if (!validationResult.IsValid)
+                throw new BankAccountNumberIsNotValidException();
+        };
+        // ValidBankAccount("IE12BOFI90000112345678");
+        Assert.Throws<BankAccountNumberIsNotValidException>(() => ValidBankAccount(invalidBankNumber));
+    }
+
+    public static readonly object[][] _validTestEmailData =
+    {
+        new object[]
+        {
+            "Alihassan@g.com"
+        },
+        new object[]
+        {
+            "Salman@gmail.com"
+        },
+        new object[]
+        {
+            "Albert.Smith@yahoo.com"
+        }
+    };
+
+    public static readonly object[][] _invalidTestBankAccountData =
+    {
+        new object[]
+        {
+            "11"
+        },
+        new object[]
+        {
+            "e3r3r"
+        },
+        new object[]
+        {
+            "Albert"
+        }
+    };
+
+    #endregion
 }
