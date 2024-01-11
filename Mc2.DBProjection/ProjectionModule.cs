@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using Mc2.CrudTest.Presentation.Shared;
-// using Mc2.DBProjection.Handlers;
 using Neo4j.Driver;
 
 namespace Mc2.DBProjection;
@@ -16,9 +14,6 @@ public class ProjectionModule : Module
 
     protected override void Load(ContainerBuilder builder)
     {
-        // builder.RegisterType<EventBus>().As<IEventBus>().InstancePerLifetimeScope();
-        // builder.RegisterAssemblyTypes(typeof(CustomerEventHandlers).Assembly).As(type => type.GetInterfaces()
-        //     .Where(a => a.IsClosedTypeOf(typeof(IEventHandler<>)))).InstancePerLifetimeScope();
         builder.Register(GetNeo4J);
         base.Load(builder);
     }
@@ -26,7 +21,6 @@ public class ProjectionModule : Module
 
     private IDriver GetNeo4J(IComponentContext context)
     {
-        return GraphDatabase.Driver(_applicationSettings.Neo4jConnection,
-            AuthTokens.Basic(_applicationSettings.Neo4jUser, _applicationSettings.Neo4jPassword));
+        return GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "Mehdi"));
     }
 }

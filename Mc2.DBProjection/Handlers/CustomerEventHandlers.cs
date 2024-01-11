@@ -9,11 +9,12 @@ public class CustomerEventHandlers : IEventHandler<CustomerDefined>,
     IEventHandler<CustomerModified>,
     IEventHandler<CustomerRemoved>
 {
-    // private readonly IAsyncTransaction _transaction;
+    private readonly IDriver _driver;
 
-    public CustomerEventHandlers()
+    public CustomerEventHandlers(IDriver driver)
     {
-        // _transaction = transaction;
+        _driver = driver;
+        
     }
 
     public void Handle(CustomerDefined eventToHandle)
@@ -30,18 +31,20 @@ public class CustomerEventHandlers : IEventHandler<CustomerDefined>,
                     "CreateDate : $createDate, " +
                     "LastUpdate : $createDate " +
                     "})").ToString();
-        // _transaction.RunAsync(query, new
-        // {
-        //     id = eventToHandle.Id.Id.ToString(),
-        //     firstName = eventToHandle.FirstName,
-        //     lastName = eventToHandle.LastName,
-        //     email = eventToHandle.Email,
-        //     phoneNumber = eventToHandle.PhoneNumber,
-        //     bankAccountNumber = eventToHandle.BankAccountNumber,
-        //     createDate = eventToHandle.PublishDateTime.ToString("yyyy-MM-ddThh:mm:ss"),
-        //     deleted = false
-        // });
+        _driver.AsyncSession().RunAsync(query, new
+        {
+            id = eventToHandle.Id.Id.ToString(),
+            firstName = eventToHandle.FirstName,
+            lastName = eventToHandle.LastName,
+            email = eventToHandle.Email,
+            phoneNumber = eventToHandle.PhoneNumber,
+            bankAccountNumber = eventToHandle.BankAccountNumber,
+            createDate = eventToHandle.PublishDateTime.ToString("yyyy-MM-ddThh:mm:ss"),
+            deleted = false
+        });
+        
     }
+
 
     public void Handle(CustomerModified eventToHandle)
     {
