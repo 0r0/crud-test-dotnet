@@ -12,6 +12,7 @@ using Mc2.DBProjection.Handlers;
 using Mc2.Query;
 using Mc2.Query.CustomerManagers;
 using Neo4j.Driver;
+using Neo4jClient;
 
 namespace Mc2.CrudTest.Presentation.Server.Module;
 
@@ -54,18 +55,24 @@ public class CustomerModule : Autofac.Module
             .InstancePerLifetimeScope();
         builder.RegisterGeneric(typeof(GenericEventHandlers<>)).As(typeof(IGenericEventHandlers<>)).SingleInstance();
         builder.Register(GetNeo4J);
+        builder.Register(GetGraphClient);
 
         base.Load(builder);
     }
-    
+
     private IDriver GetNeo4J(IComponentContext context)
     {
-
         return GraphDatabase.Driver("bolt://localhost:7687",
             AuthTokens.Basic("neo4j", "Mehdi"));
     }
-    
-    
-    
-  
+
+    private GraphClient GetGraphClient(IComponentContext context)
+    {
+
+        var client = new GraphClient(new Uri("http://neo4j:Mehdi@localhost:7474"))/*"neo4j","Mehdi")*/
+        {
+            DefaultDatabase = "neo4j"
+        };
+        return client;
+    }
 }

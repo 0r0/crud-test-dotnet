@@ -7,7 +7,7 @@ namespace Mc2.DBProjection.Handlers;
 
 public class CustomerEventHandlers : IEventHandler<CustomerDefined>,
     IEventHandler<CustomerModified>,
-    IEventHandler<CustomerRemoved>
+    IEventHandler<CustomerRemoved>,IDisposable
 {
     private readonly IDriver _driver;
 
@@ -85,5 +85,10 @@ public class CustomerEventHandlers : IEventHandler<CustomerDefined>,
         //     id = eventToHandle.Id.Id.ToString(),
         //     lastUpdate = eventToHandle.PublishDateTime.ToString("yyyy-MM-ddThh:mm:ss")
         // });
+    }
+
+    public void Dispose()
+    {
+        _driver?.Dispose();
     }
 }

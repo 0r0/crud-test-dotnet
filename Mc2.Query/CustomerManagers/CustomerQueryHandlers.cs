@@ -1,24 +1,22 @@
-﻿using FizzWare.NBuilder.Extensions;
-using Mc2.CrudTest.Presentation.Shared;
+﻿using Mc2.CrudTest.Presentation.Shared;
 using Mc2.Query.Contracts.Requests;
 using Mc2.Query.Contracts.Responses;
-using Neo4j.Driver;
 using Neo4jClient;
 using Neo4jClient.Cypher;
 
 namespace Mc2.Query.CustomerManagers;
 
-public class CustomerQueryHandlers : IQueryHandler<GetCustomerById,CustomerResponse>,
-    IQueryHandler<GetAllCustomers,IReadOnlyCollection<CustomerResponse>>,
-    IQueryHandler<IsSameEmailExist,bool>,
-    IQueryHandler<IsCustomerWithSameFirstNameLastNameAndBirthDateExist,bool
-    >
+public class CustomerQueryHandlers : IQueryHandler<GetCustomerById, CustomerResponse>,
+    IQueryHandler<GetAllCustomers, IReadOnlyCollection<CustomerResponse>>,
+    IQueryHandler<IsSameEmailExist, bool>,
+    IQueryHandler<IsCustomerWithSameFirstNameLastNameAndBirthDateExist, bool>
 {
-    private readonly IGraphClient _client;
+    private readonly GraphClient _client;
 
-    public CustomerQueryHandlers(IGraphClient client)
+    public CustomerQueryHandlers(GraphClient client)
     {
         _client = client;
+        _client.ConnectAsync().GetAwaiter().GetResult();
     }
 
     public CustomerResponse Handle(GetCustomerById query)
@@ -47,14 +45,16 @@ public class CustomerQueryHandlers : IQueryHandler<GetCustomerById,CustomerRespo
     public bool Handle(IsSameEmailExist query)
     {
         return _client.Cypher.Match("(c:Customer)")
-            .Where("c.Id <> $id ")
-            .AndWhere("c.Email = $email")
-            .WithParams(new
-            {
-                id = query.Id.Id.ToString(),
-                email = query.Email
-            })
-            .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result.FirstOrDefault() ?? false;
+                   .Where("c.Id <> $id ")
+                   .AndWhere("c.Email = $email")
+                   .WithParams(new
+                   {
+                       id = query.Id.Id.ToString(),
+                       email = query.Email
+                   })
+                   .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result
+                   .FirstOrDefault() ??
+               false;
     }
 
     public bool Handle(IsCustomerWithSameFirstNameLastNameAndBirthDateExist query)
@@ -71,6 +71,7 @@ public class CustomerQueryHandlers : IQueryHandler<GetCustomerById,CustomerRespo
                 lastName = query.LastName,
                 dateOfBirth = query.DateOfBirth
             })
-            .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result.FirstOrDefault() ?? false;
+            .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result
+            .FirstOrDefault() ?? false;
     }
 }
