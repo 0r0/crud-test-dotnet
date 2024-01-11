@@ -5,11 +5,10 @@ using Mc2.Application;
 using Mc2.Application.CustomerManagers;
 using Mc2.Application.CustomerManagers.Validators;
 using Mc2.CrudTest.Presentation.Server.Handlers;
-// using Mc2.CrudTest.Presentation.Server.Handlers.Mc2.CrudTest.Presentation.Server.Handlers;
-// using Mc2.CrudTest.Presentation.Server.Handlers;
 using Mc2.CrudTest.Presentation.Shared;
 using Mc2.CrudTest.Presentation.Shared.AggregateRootFactory;
 using Mc2.CrudTest.Presentation.Shared.EventStore;
+using Mc2.DBProjection.Handlers;
 using Mc2.Query;
 using Mc2.Query.CustomerManagers;
 
