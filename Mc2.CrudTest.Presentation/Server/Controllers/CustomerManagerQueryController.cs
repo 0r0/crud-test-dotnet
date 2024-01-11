@@ -1,5 +1,4 @@
 ﻿using Mc2.CrudTest.Presentation.Shared;
-using Mc2.Domain.Contracts.CustomerManagers;
 using Mc2.Query.Contracts.Requests;
 using Mc2.Query.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +25,7 @@ public class CustomerManagerQueryController : ControllerBase
     [HttpGet("{id:guid}")]
     public CustomerResponse Get(Guid id)
     {
-        return _queryBus.Execute<GetCustomerById, CustomerResponse>(new GetCustomerById(new CustomerId(id)));
+        // return _queryBus.Execute<GetCustomerById, CustomerResponse>(new GetCustomerById(new CustomerId(id)));
+        return default;
     }
 }

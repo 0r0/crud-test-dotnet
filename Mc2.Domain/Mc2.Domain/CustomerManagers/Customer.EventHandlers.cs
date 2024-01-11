@@ -7,7 +7,7 @@ public partial class Customer
 {
     public override void Apply(DomainEvent @event)
     {
-        When((dynamic)@event);
+        When((dynamic) @event);
     }
 
 

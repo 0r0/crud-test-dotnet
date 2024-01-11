@@ -11,8 +11,8 @@ public partial class Customer : AggregateRoot<CustomerId>
 
     public Customer(CustomerArgs args, ICustomerService service)
     {
-        GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(args, service);
-        GuardAgainstSameEmail(args, service);
+        // GuardAgainstSameFirstNameAndLastNameAndDateOfBirth(args, service);
+        // GuardAgainstSameEmail(args, service);
         ApplyAndPublish(new CustomerDefined(args.Id, args.FirstName, args.LastName, args.DateOfBirth, args.PhoneNumber,
             args.Email, args.BankAccountNumber));
     }

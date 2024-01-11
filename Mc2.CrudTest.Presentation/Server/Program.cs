@@ -2,7 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Mc2.CrudTest.Presentation.Server.Module;
 
-namespace Mc2.CrudTest.Presentation
+namespace Mc2.CrudTest.Presentation.Server
 {
     public class Program
     {

@@ -1,16 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Autofac;
+using Mc2.CrudTest.Presentation.Shared;
 
-namespace Mc2.CrudTest.Presentation.Shared;
-
-public class AutofacQueryHandlerFactory : IQueryHandlerFactory
+namespace Arius.Config.Autofac
 {
-    private readonly ILifetimeScope _lifetimeScope;
-    public AutofacQueryHandlerFactory(ILifetimeScope lifetimeScope)
+    public class AutofacQueryHandlerFactory : IQueryHandlerFactory
     {
-        _lifetimeScope = lifetimeScope;
-    }
-    public IQueryHandler<TQuery, TResult> CreateHandler<TQuery, TResult>() where TQuery : IQuery<TResult>
-    {
-        return _lifetimeScope.Resolve<IQueryHandler<TQuery, TResult>>();
+        private readonly ILifetimeScope _lifetimeScope;
+        public AutofacQueryHandlerFactory(ILifetimeScope lifetimeScope)
+        {
+            _lifetimeScope = lifetimeScope;
+        }
+        public IQueryHandler<TQuery, TResult> CreateHandler<TQuery, TResult>() where TQuery : IQuery<TResult>
+        {
+            return _lifetimeScope.Resolve<IQueryHandler<TQuery, TResult>>();
+        }
     }
 }

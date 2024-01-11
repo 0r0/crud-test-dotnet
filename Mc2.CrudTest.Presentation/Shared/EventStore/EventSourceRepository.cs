@@ -30,9 +30,13 @@ public class EventSourceRepository<T, TKey> : IEventSourceRepository<T, TKey> wh
     {
         var events = aggregate.GetUncommittedEvents();
         _eventStore.Append(GetStreamId(aggregate.Id), events);
-        foreach (DomainEvent domainEvent in events)
+        foreach (IDomainEvent domainEvent in events)
         {
-            _eventBus.Publish(domainEvent);
+            var dispatchMethod = _eventBus.GetType()
+                .GetMethod(nameof(IEventBus.Publish))
+                .MakeGenericMethod(domainEvent.GetType());
+             dispatchMethod.Invoke(_eventBus, new []{domainEvent});
+           
         }
     }
 

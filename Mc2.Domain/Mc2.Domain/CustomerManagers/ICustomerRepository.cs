@@ -1,4 +1,5 @@
 ﻿using DDDFramework.Core;
+using Mc2.CrudTest.Presentation.Shared;
 using Mc2.Domain.Contracts.CustomerManagers;
 
 namespace Mc2.Domain.CustomerManagers;

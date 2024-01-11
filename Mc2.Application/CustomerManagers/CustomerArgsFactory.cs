@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using Mc2.Application.Contracts.CustomerManagers;
+using Mc2.CrudTest.Presentation.Shared;
 using Mc2.Domain.Contracts.CustomerManagers;
 using Mc2.Domain.CustomerManagers;
 
@@ -7,7 +8,7 @@ namespace Mc2.Application.CustomerManagers;
 
 public class CustomerArgsFactory : ICustomerArgsFactory
 {
-    public CustomerArgs CreateFrom(DefineCustomerCommand command)
+    public  CustomerArgs CreateFrom(DefineCustomerCommand command)
     {
         command.Id = Guid.NewGuid();
         return CustomerArgs.Builder

@@ -1,4 +1,6 @@
-namespace Mc2.CrudTest.Presentation.Shared;
+using Mc2.CrudTest.Presentation.Shared;
+
+namespace Mc2.CrudTest.Presentation.Server.Handlers;
 
 public class EventPublisher : IEventPublisher
 {
