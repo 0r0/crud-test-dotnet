@@ -13,16 +13,13 @@ public class DefineCustomerCommandValidator : AbstractValidator<DefineCustomerCo
     {
         RuleFor(a => a.PhoneNumber).Custom((value, _) =>
         {
-            var phoneNumberUtil = PhoneNumberUtil.GetInstance();
-            var phoneNumber = phoneNumberUtil.Parse(value.ToString(), null);
-
-            if (!phoneNumberUtil.IsPossibleNumber(phoneNumber))
+            if (!PhoneNumberUtil.IsViablePhoneNumber(value.ToString()))
                 throw new PhoneNumberIsNotValidException();
         });
         RuleFor(a => a.Email).Custom((value, _) =>
         {
             var emailValidator = new EmailAddressAttribute();
-            if (emailValidator.IsValid(value))
+            if (!emailValidator.IsValid(value))
                 throw new EmailIsNotValidException();
         });
         RuleFor(a => a.BankAccountNumber).Custom((value, _) =>
