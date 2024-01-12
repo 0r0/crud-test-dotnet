@@ -37,6 +37,8 @@ public class ICanFindCustomer
 
     private void Modify()
     {
-        throw new NotImplementedException();
+        var expected = _context.Get<ModifyCustomerManagerCommand>();
+        var actual = _actor.AsksFor(new GetCustomerByIdQuestion(expected.Id));
+        actual.Should().BeEquivalentTo(expected);
     }
 }

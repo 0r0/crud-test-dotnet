@@ -69,7 +69,7 @@ public class CustomerModule : Autofac.Module
     private GraphClient GetGraphClient(IComponentContext context)
     {
 
-        var client = new GraphClient(new Uri("http://neo4j:Mehdi@localhost:7474"))/*"neo4j","Mehdi")*/
+        var client = new GraphClient(new Uri("http://neo4j:Mehdi@localhost:7474"))
         {
             DefaultDatabase = "neo4j"
         };
