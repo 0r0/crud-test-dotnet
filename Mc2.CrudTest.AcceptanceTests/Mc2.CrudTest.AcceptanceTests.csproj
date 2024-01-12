@@ -24,8 +24,20 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Features\ModifyingCustomerManager.feature.cs">
+      <Compile Update="Features\CustomerManagers\DefiningCustomerManager.feature.cs">
+        <DependentUpon>DefiningCustomerManager.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+      <Compile Update="Features\CustomerManagers\ModifyingCustomerManager.feature.cs">
         <DependentUpon>ModifyingCustomerManager.feature</DependentUpon>
+        <AutoGen>true</AutoGen>
+        <DesignTime>true</DesignTime>
+        <Visible>true</Visible>
+      </Compile>
+      <Compile Update="Features\CustomerManagers\RemovingCustomerManager.feature.cs">
+        <DependentUpon>RemovingCustomerManager.feature</DependentUpon>
         <AutoGen>true</AutoGen>
         <DesignTime>true</DesignTime>
         <Visible>true</Visible>
