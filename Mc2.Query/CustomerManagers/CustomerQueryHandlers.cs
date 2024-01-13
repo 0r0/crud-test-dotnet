@@ -16,18 +16,18 @@ public class CustomerQueryHandlers : IQueryHandler<GetCustomerById, CustomerResp
     public CustomerQueryHandlers(GraphClient client)
     {
         _client = client;
-        _client.ConnectAsync().GetAwaiter().GetResult();
+        _client.ConnectAsync().Wait();
     }
 
     public CustomerResponse Handle(GetCustomerById query)
     {
-        var result = _client.Cypher.Match("(c:Customer)")
+        var result =Task.FromResult( _client.Cypher.Match("(c:Customer)")
             .Where("c.Id = $id")
             .WithParam("id", query.Id.Id.ToString())
             .Return(() => new
             {
                 Customer = Return.As<CustomerResponse>("c")
-            }).ResultsAsync.Result.FirstOrDefault();
+            }).ResultsAsync.Result.FirstOrDefault()).Result;
         return result?.Customer;
     }
 
@@ -52,7 +52,7 @@ public class CustomerQueryHandlers : IQueryHandler<GetCustomerById, CustomerResp
                        id = query.Id.Id.ToString(),
                        email = query.Email
                    })
-                   .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result
+                   .Return<bool?>("CASE WHEN c IS NULL THEN FALSE ELSE TRUE END").ResultsAsync.Result
                    .FirstOrDefault() ??
                false;
     }
@@ -71,7 +71,7 @@ public class CustomerQueryHandlers : IQueryHandler<GetCustomerById, CustomerResp
                 lastName = query.LastName,
                 dateOfBirth = query.DateOfBirth
             })
-            .Return<bool?>("CASE WHEN c IS NULL RETURN FALSE ELSE TRUE END").ResultsAsync.Result
+            .Return<bool?>("CASE WHEN c IS NULL THEN FALSE ELSE TRUE END").ResultsAsync.Result
             .FirstOrDefault() ?? false;
     }
 }

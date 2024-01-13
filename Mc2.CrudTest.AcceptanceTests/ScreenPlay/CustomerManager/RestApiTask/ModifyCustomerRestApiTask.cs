@@ -17,6 +17,6 @@ public class ModifyCustomerRestApiTask : ITask
 
     public void PerformAs<T>(T actor) where T : Actor
     {
-        actor.AttemptsTo(Put.DataAsJson(_command).To($"/api/customer/{_command.Id}"));
+        actor.AttemptsTo(Put.DataAsJson(_command).To($"/api/customermanager/{_command.Id}"));
     }
 }

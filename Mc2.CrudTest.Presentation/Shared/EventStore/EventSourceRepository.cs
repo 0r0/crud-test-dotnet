@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Presentation.Shared.AggregateRootFactory;
+﻿using System.Reflection;
+using Mc2.CrudTest.Presentation.Shared.AggregateRootFactory;
 
 namespace Mc2.CrudTest.Presentation.Shared.EventStore;
 
@@ -35,13 +36,13 @@ public class EventSourceRepository<T, TKey> : IEventSourceRepository<T, TKey> wh
             var dispatchMethod = _eventBus.GetType()
                 .GetMethod(nameof(IEventBus.Publish))
                 .MakeGenericMethod(domainEvent.GetType());
-             dispatchMethod.Invoke(_eventBus, new []{domainEvent});
-           
+            dispatchMethod.Invoke(_eventBus, new[] { domainEvent });
         }
     }
 
     private string GetStreamId(TKey id)
     {
-        return $"{typeof(T).Name}-{id}";
+        return
+            $"{typeof(T).Name}-{id.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).First().GetValue(id)}";
     }
 }

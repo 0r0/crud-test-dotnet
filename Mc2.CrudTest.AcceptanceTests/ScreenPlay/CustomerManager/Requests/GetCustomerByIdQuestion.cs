@@ -17,7 +17,7 @@ public class GetCustomerByIdQuestion : IQuestion<CustomerResponse>
 
     public CustomerResponse AnsweredBy(Actor actor)
     {
-        actor.AttemptsTo(Get.ResourceAt($"/api/customerQuery/{Id}"));
+        actor.AttemptsTo(Get.ResourceAt($"/api/customerManagerQuery/{Id}"));
         return actor.AsksFor(LastResponse.Content<CustomerResponse>());
     }
 }

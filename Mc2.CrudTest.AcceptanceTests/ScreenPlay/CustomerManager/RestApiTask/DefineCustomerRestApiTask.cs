@@ -15,5 +15,5 @@ public class DefineCustomerRestApiTask : ITask
     }
 
     public void PerformAs<T>(T actor) where T : Actor
-        => actor.AttemptsTo(Post.DataAsJson(_command).To("/api/customer"));
+        => actor.AttemptsTo(Post.DataAsJson(_command).To("/api/customerManager"));
 }

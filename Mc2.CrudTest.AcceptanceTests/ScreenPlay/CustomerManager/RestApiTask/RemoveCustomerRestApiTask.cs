@@ -16,6 +16,6 @@ public class RemoveCustomerRestApiTask : ITask
 
     public void PerformAs<T>(T actor) where T : Actor
     {
-        actor.AttemptsTo(Delete.From($"/api/customer/{_command.Id}"));
+        actor.AttemptsTo(Delete.From($"/api/customermanager/{_command.Id}"));
     }
 }

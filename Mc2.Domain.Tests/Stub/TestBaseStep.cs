@@ -32,8 +32,8 @@ public class TestBaseStep
     protected void MustThrowException(string code, string message)
     {
         var expected = Exception.ToString().Replace('_', '-');
-       
-        expected.Should().Be(code);
+        var actual = string.Concat(code.Skip(3));
+        expected.Should().Be(actual);
     }
 
     public void MustThrowExceptionAs<TException>(Enum errorCode) where TException : Exception

@@ -3,8 +3,8 @@ As a an operator I wish to be able to Define
 
     Scenario: a Customer can be defined with valid properties
         When I register customer with following properties
-          | FirstName | Lastname | DateOfBirth          | PhoneNumber | Email                | BankAccountNumber      |
-          | Ali       | Hassani  | 2000-02-01T00:00:01Z | 09131922393 | ali.hassani@mail.com | IE12BOFI90000112345678 |
+          | FirstName | Lastname | DateOfBirth          | PhoneNumber | Email                | BankAccountNumber                     |
+          | Ali       | Hassani  | 2000-02-01T00:00:01Z | 09131922393 | ali.hassani@mail.com | KW81CBKU0000000000001234560101 |
         Then I can find a customer with above info
 
     Scenario: a customer can not be defined with invalid properties
